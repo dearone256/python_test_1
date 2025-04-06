@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from group import Group
 
 class Test_create_group1():
   def setup_method(self, method):
@@ -24,16 +25,16 @@ class Test_create_group1():
   def open_group_page(self):
     self.driver.find_element(By.LINK_TEXT, "groups").click()
 
-  def create_group(self, name, header, footer):
+  def create_group(self, group):
     # init new group
     self.driver.find_element(By.NAME, "new").click()
     # fill group form
     self.driver.find_element(By.NAME, "group_name").click()
-    self.driver.find_element(By.NAME, "group_name").send_keys(name)
+    self.driver.find_element(By.NAME, "group_name").send_keys(group.name01)
     self.driver.find_element(By.NAME, "group_header").click()
-    self.driver.find_element(By.NAME, "group_header").send_keys(header)
+    self.driver.find_element(By.NAME, "group_header").send_keys(group.header01)
     self.driver.find_element(By.NAME, "group_footer").click()
-    self.driver.find_element(By.NAME, "group_footer").send_keys(footer)
+    self.driver.find_element(By.NAME, "group_footer").send_keys(group.footer01)
     # submit group creation
     self.driver.find_element(By.NAME, "submit").click()
 
@@ -48,7 +49,7 @@ class Test_create_group1():
     self.resize_window()
     self.login(username="admin" , password="secret")
     self.open_group_page()
-    self.create_group(name="grname_03", header="grheader_03", footer="grfooter_03")
+    self.create_group(Group(name1="grname_03", header1="grheader_03", footer1="grfooter_03"))
     self.return_to_group_page()
     self.logout()
 
@@ -57,7 +58,7 @@ class Test_create_group1():
     self.resize_window()
     self.login(username="admin" , password="secret")
     self.open_group_page()
-    self.create_group(name="", header="", footer="")
+    self.create_group(Group(name1="", header1="", footer1=""))
     self.return_to_group_page()
     self.logout()
 

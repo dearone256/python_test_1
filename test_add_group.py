@@ -2,6 +2,8 @@
 from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.common.by import By
 import unittest
+from group import Group
+import time
 
 """
 def is_alert_present (wd):
@@ -11,7 +13,6 @@ def is_alert_present (wd):
 	except:
 		return False
 """
-
 class test_add_group (unittest.TestCase):
 	def setUp(self):
 		self.wd = WebDriver()
@@ -32,19 +33,19 @@ class test_add_group (unittest.TestCase):
 	def Open_group_page(self, pp):
 		pp.find_element(By.LINK_TEXT, "groups").click()
 
-	def Create_group(self, wd, name, header, footer):
+	def Create_group(self, wd, grouppy):
 		# init new group
 		wd.find_element(By.NAME, "new").click()
 		# fill group form
 		wd.find_element(By.NAME, "group_name").click()
 		wd.find_element(By.NAME, "group_name").clear()
-		wd.find_element(By.NAME, "group_name").send_keys(name)
+		wd.find_element(By.NAME, "group_name").send_keys(grouppy.name01)
 		wd.find_element(By.NAME, "group_header").click()
 		wd.find_element(By.NAME, "group_header").clear()
-		wd.find_element(By.NAME, "group_header").send_keys(header)
+		wd.find_element(By.NAME, "group_header").send_keys(grouppy.header01)
 		wd.find_element(By.NAME, "group_footer").click()
 		wd.find_element(By.NAME, "group_footer").clear()
-		wd.find_element(By.NAME, "group_footer").send_keys(footer)
+		wd.find_element(By.NAME, "group_footer").send_keys(grouppy.footer01)
 		# submit group creation
 		wd.find_element(By.NAME, "submit").click()
 
@@ -59,7 +60,7 @@ class test_add_group (unittest.TestCase):
 		self.Open_main_page(wd)
 		self.Login(wd, username="admin", password="secret")
 		self.Open_group_page(wd)
-		self.Create_group(wd, name="dfgdfg451", header="dfgdfg452", footer="dfgfghgfhg453")
+		self.Create_group(wd, Group(name1='04', header1='04', footer1='04'))
 		self.Return_to_groups_page(wd)
 		self.Logout(wd)
 
@@ -68,7 +69,7 @@ class test_add_group (unittest.TestCase):
 		self.Open_main_page(wd)
 		self.Login(wd, username="admin", password="secret")
 		self.Open_group_page(wd)
-		self.Create_group(wd, name="", header="", footer="")
+		self.Create_group(wd, Group(name1='', header1='', footer1=''))
 		self.Return_to_groups_page(wd)
 		self.Logout(wd)
 
