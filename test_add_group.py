@@ -1,77 +1,24 @@
 # -*- coding: utf-8 -*-
-from selenium.webdriver.firefox.webdriver import WebDriver
-from selenium.webdriver.common.by import By
-import unittest
+import pytest
 from group import Group
-import time
+from application import Application
 
-"""
-def is_alert_present (wd):
-	try:
-		wd.switch_to_alert().text
-		return True
-	except:
-		return False
-"""
-class test_add_group (unittest.TestCase):
-	def setUp(self):
-		self.wd = WebDriver()
-		self.wd.implicitly_wait (60)
 
-	def Open_main_page(self, nm):
-		nm.get("http://localhost/addressbook/")
+@pytest.fixture
+def  app(request):
+	fixture = Application()
+	request.addfinalizer(fixture.destroy)
+	return fixture
 
-	def Login(self, wd, username, password):
-		self.Open_main_page(wd)
-		wd.find_element(By.NAME, "user").click()
-		wd.find_element(By.NAME, "user").clear()
-		wd.find_element(By.NAME, "user").send_keys(username)
-		wd.find_element(By.NAME, "pass").click()
-		wd.find_element(By.NAME, "pass").clear()
-		wd.find_element(By.NAME, "pass").send_keys(password)
-		wd.find_element(By.CSS_SELECTOR, "input[type=\"submit\"]").click()
+def test_add_group (app):
+	app.Login(username="admin", password="secret")
+	app.Create_group( Group(name1='05', header1='05', footer1='05'))
+	app.Logout()
 
-	def Open_group_page(self, pp):
-		pp.find_element(By.LINK_TEXT, "groups").click()
-
-	def Create_group(self, wd, grouppy):
-		self.Open_group_page(wd)
-		# init new group
-		wd.find_element(By.NAME, "new").click()
-		# fill group form
-		wd.find_element(By.NAME, "group_name").click()
-		wd.find_element(By.NAME, "group_name").clear()
-		wd.find_element(By.NAME, "group_name").send_keys(grouppy.name01)
-		wd.find_element(By.NAME, "group_header").click()
-		wd.find_element(By.NAME, "group_header").clear()
-		wd.find_element(By.NAME, "group_header").send_keys(grouppy.header01)
-		wd.find_element(By.NAME, "group_footer").click()
-		wd.find_element(By.NAME, "group_footer").clear()
-		wd.find_element(By.NAME, "group_footer").send_keys(grouppy.footer01)
-		# submit group creation
-		wd.find_element(By.NAME, "submit").click()
-		self.Return_to_groups_page(wd)
-
-	def Return_to_groups_page(self, wd):
-		wd.find_element(By.LINK_TEXT, "group page").click()
-
-	def Logout(self, wd):
-		wd.find_element(By.LINK_TEXT, "Logout").click()
-
-	def test_add_group (self):
-		wd = self.wd
-		self.Login(wd, username="admin", password="secret")
-		self.Create_group(wd, Group(name1='04', header1='04', footer1='04'))
-		self.Logout(wd)
-
-	def test_add_empty_group (self):
-		wd = self.wd
-		self.Login(wd, username="admin", password="secret")
-		self.Create_group(wd, Group(name1='', header1='', footer1=''))
-		self.Logout(wd)
-
-	def tearDown(self):
-		self.wd.quit()
+def test_add_empty_group (app):
+	app.Login(username="admin", password="secret")
+	app.Create_group(Group(name1='', header1='', footer1=''))
+	app.Logout()
 
 if __name__ == '__main__':
 	unittest.main()
