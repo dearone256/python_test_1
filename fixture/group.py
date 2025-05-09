@@ -5,10 +5,6 @@ class GroupHelper:
     def __init__(self, app):
         self.app = app
 
-    def Open_main_page(self):
-        wd = self.app.wd
-        wd.get("http://localhost/addressbook/")
-
     def Open_group_page(self):
         wd = self.app.wd
         wd.find_element(By.LINK_TEXT, "groups").click()
