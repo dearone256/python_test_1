@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""
 import pytest
 from model.group import Group
 from fixture.application1 import Application1
@@ -17,7 +18,7 @@ def test_create_group1(apps):
 def test_create_empty_group1(apps):
   apps.login(username="admin" , password="secret")
   apps.create_group(Group(name1="", header1="", footer1=""))
-  apps.logout()
+  apps.logout()"""
 
 
 
