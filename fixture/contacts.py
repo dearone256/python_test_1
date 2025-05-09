@@ -48,7 +48,7 @@ class ContactHelper:
         wd.find_element(By.NAME, "byear").click()
         wd.find_element(By.NAME, "byear").send_keys(contact_fields.birth_year)
         wd.find_element(By.NAME, "new_group").click()
-        wd.find_element(By.CSS_SELECTOR, "select:nth-child(71) > option:nth-child(2)").click()
+        # wd.find_element(By.CSS_SELECTOR, "select:nth-child(71) > option:nth-child(2)").click() закомментировал выбор группы, так как группы может не быть
         # fill contact secondary form
         wd.find_element(By.NAME, "address2").click()
         wd.find_element(By.NAME, "address2").send_keys(contact_fields.address2)
