@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
 import pytest
-from group import Group
-from application import Application
-
+from model.group import Group
+from fixture.application import Application
 
 @pytest.fixture
 def  app(request):
@@ -19,6 +18,3 @@ def test_add_empty_group (app):
 	app.Login(username="admin", password="secret")
 	app.Create_group(Group(name1='', header1='', footer1=''))
 	app.Logout()
-
-if __name__ == '__main__':
-	unittest.main()
