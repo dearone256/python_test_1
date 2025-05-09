@@ -1,0 +1,38 @@
+from selenium.webdriver.common.by import By
+
+class GroupHelper:
+
+    def __init__(self, app):
+        self.app = app
+
+    def Open_main_page(self):
+        wd = self.app.wd
+        wd.get("http://localhost/addressbook/")
+
+    def Open_group_page(self):
+        wd = self.app.wd
+        wd.find_element(By.LINK_TEXT, "groups").click()
+
+    def Create(self, grouppy):
+        wd = self.app.wd
+        self.Open_group_page()
+        # init new group
+        wd.find_element(By.NAME, "new").click()
+        # fill group form
+        wd.find_element(By.NAME, "group_name").click()
+        wd.find_element(By.NAME, "group_name").clear()
+        wd.find_element(By.NAME, "group_name").send_keys(grouppy.name01)
+        wd.find_element(By.NAME, "group_header").click()
+        wd.find_element(By.NAME, "group_header").clear()
+        wd.find_element(By.NAME, "group_header").send_keys(grouppy.header01)
+        wd.find_element(By.NAME, "group_footer").click()
+        wd.find_element(By.NAME, "group_footer").clear()
+        wd.find_element(By.NAME, "group_footer").send_keys(grouppy.footer01)
+        # submit group creation
+        wd.find_element(By.NAME, "submit").click()
+        self.Return_to_groups_page()
+
+    def Return_to_groups_page(self):
+        wd = self.app.wd
+        wd.find_element(By.LINK_TEXT, "group page").click()
+
