@@ -1,5 +1,4 @@
 from selenium.webdriver.firefox.webdriver import WebDriver
-from selenium.webdriver.common.by import By
 
 from fixture.contacts import ContactHelper
 from fixture.group import GroupHelper
@@ -13,6 +12,14 @@ class Application:
         self.session = SessionHelper(self)
         self.group = GroupHelper(self)
         self.contact = ContactHelper(self)
+
+    def is_valid(self):
+        try:
+            self.wd.current_url
+            return True
+        except:
+            return False
+
 
     def Open_main_page(self):
         wd = self.wd
