@@ -9,6 +9,11 @@ class GroupHelper:
         wd = self.app.wd
         wd.find_element(By.LINK_TEXT, "groups").click()
 
+    def count(self):
+        wd = self.app.wd
+        self.Open_group_page()
+        return len(wd.find_elements(By.NAME, "selected[]"))
+
     def change_field_value(self, field_name, text):
         wd = self.app.wd
         if text is not None:
